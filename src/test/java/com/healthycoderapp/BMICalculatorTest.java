@@ -65,10 +65,10 @@ class BMICalculatorTest {
 		Coder coderWorstBMI = BMICalculator.findCoderWithWorstBMI(coders);
 		
 		// then
-		// Here, if first assertion fails, then second would never be executed.
-		// So, we won't get to know if our first assertion only failed or both of them
-		assertEquals(1.82, coderWorstBMI.getHeight());
-		assertEquals(98.0, coderWorstBMI.getWeight());
+		assertAll(
+				() -> assertEquals(1.82, coderWorstBMI.getHeight()),
+				() -> assertEquals(98.0, coderWorstBMI.getWeight())
+		);
 	}
 	
 }
