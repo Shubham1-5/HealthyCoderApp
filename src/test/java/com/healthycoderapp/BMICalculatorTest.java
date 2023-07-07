@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
@@ -123,6 +124,21 @@ class BMICalculatorTest {
 		// given
 		double weight = coderWeight;
 		double height = 1.65;
+		
+		// when
+		boolean recommended = BMICalculator.isDietRecommended(weight, height);
+		
+		// then
+		assertTrue(recommended);
+	}
+	
+	@ParameterizedTest
+	@CsvSource(value = {"89.0, 1.72", "95.0, 1.75", "110.0, 1.78"})
+	void should_ReturnTrue_When_DietRecommended3(Double coderWeight, Double coderHeight) {
+		
+		// given
+		double weight = coderWeight;
+		double height = coderHeight;
 		
 		// when
 		boolean recommended = BMICalculator.isDietRecommended(weight, height);
