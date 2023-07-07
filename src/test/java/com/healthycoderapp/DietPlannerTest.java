@@ -1,5 +1,6 @@
 package com.healthycoderapp;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,11 @@ class DietPlannerTest {
 		this.dietPlanner = new DietPlanner(20, 30, 50);
 	}
 	
+	@AfterEach
+	void afterEach() {
+		System.out.println("A unit test was finished");
+	}
+	
 	@Test
 	void should_ReturnCorrectDietPlan_When_CorrectCoder() {
 		
@@ -25,8 +31,12 @@ class DietPlannerTest {
 		DietPlan actual = dietPlanner.calculateDiet(coder);
 		
 		// then
-		// This throws same issue as failed test because both are different objects
-		assertEquals(expected, actual);
+		assertAll(
+				() -> assertEquals(expected.getCalories(), actual.getCalories()),
+				() -> assertEquals(expected.getProtein(), actual.getProtein()),
+				() -> assertEquals(expected.getFat(), actual.getFat()),
+				() -> assertEquals(expected.getCarbohydrate(), actual.getCarbohydrate())
+		);
 		
 	}
 	
