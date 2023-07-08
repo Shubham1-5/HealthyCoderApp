@@ -62,6 +62,20 @@ class BMICalculatorTest {
 		}
 		
 		@Test
+		void should_ReturnFalse_When_DietNotRecommended2() {
+			
+			// given
+			double weight = 50.0;
+			double height = 1.92;
+			
+			// when
+			Executable executable = () -> BMICalculator.isDietRecommended(weight, height);
+			
+			// then
+			assertDoesNotThrow(executable);
+		}
+		
+		@Test
 		void should_ThrowArithmeticException_When_HeightZero() {
 			
 			// given
