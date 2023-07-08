@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class BMICalculatorTest {
+	
+	private String environment = "dev";
 	
 	@BeforeAll
 	static void beforeAll() {
@@ -168,6 +171,25 @@ class BMICalculatorTest {
 	void should_ReturnCorrectBMIIn500Ms_When_CoderListHas10000Elements() {
 		
 		// given
+		List<Coder> coders = new ArrayList<>();
+		for (int i = 0; i < 10000; i++) {
+			coders.add(new Coder(1.0 + i, 10.0 + i));
+		}
+		
+		// when
+		Executable executable = () -> BMICalculator.findCoderWithWorstBMI(coders);
+		
+		// then
+		assertTimeout(Duration.ofMillis(500), executable);
+		
+	}
+	
+	@Test
+	void should_ReturnCorrectBMIIn500Ms_When_CoderListHas10000Elements2() {
+		
+		// given
+		assumeTrue(this.environment.equals("prod")); // This line will skip the entire test case as env is set as 'dev' above
+		// assumeTrue(this.environment.equals("dev")); // This line will enable this test case to run
 		List<Coder> coders = new ArrayList<>();
 		for (int i = 0; i < 10000; i++) {
 			coders.add(new Coder(1.0 + i, 10.0 + i));
